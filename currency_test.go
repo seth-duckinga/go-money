@@ -67,7 +67,7 @@ func TestCurrency_AddCurrency(t *testing.T) {
 		c := newCurrency(tc.code).get()
 
 		if c.Template != tc.template {
-			t.Errorf("Expected currency template %v got %v", tc.template, c.Template)
+			t.Errorf("Expected Currency template %v got %v", tc.template, c.Template)
 		}
 	}
 }
@@ -85,7 +85,7 @@ func TestCurrency_GetCurrency(t *testing.T) {
 func TestCurrency_GetNonExistingCurrency(t *testing.T) {
 	currency := GetCurrency("I*am*Not*a*Currency")
 	if currency != nil {
-		t.Errorf("Unexpected currency returned %+v", currency)
+		t.Errorf("Unexpected Currency returned %+v", currency)
 	}
 }
 
@@ -119,21 +119,21 @@ func TestCurrencies(t *testing.T) {
 
 	ac := cs.CurrencyByCode(currencyFooCode)
 	if !curFoo.equals(ac) {
-		t.Errorf("unexpected currency returned. expected: %v, got %v", curFoo, ac)
+		t.Errorf("unexpected Currency returned. expected: %v, got %v", curFoo, ac)
 	}
 
 	ac = cs.CurrencyByNumericCode(currencyFooNumericCode)
 	if !curFoo.equals(ac) {
-		t.Errorf("unexpected currency returned. expected: %v, got %v", curFoo, ac)
+		t.Errorf("unexpected Currency returned. expected: %v, got %v", curFoo, ac)
 	}
 
 	ac = cs.CurrencyByCode(currencyBarCode)
 	if !curBar.equals(ac) {
-		t.Errorf("unexpected currency returned. expected: %v, got %v", curBar, ac)
+		t.Errorf("unexpected Currency returned. expected: %v, got %v", curBar, ac)
 	}
 
 	ac = cs.CurrencyByNumericCode(currencyBarNumericCode)
 	if !curBar.equals(ac) {
-		t.Errorf("unexpected currency returned. expected: %v, got %v", curBar, ac)
+		t.Errorf("unexpected Currency returned. expected: %v, got %v", curBar, ac)
 	}
 }

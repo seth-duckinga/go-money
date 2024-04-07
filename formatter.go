@@ -26,9 +26,9 @@ func NewFormatter(fraction int, decimal, thousand, grapheme, template string) *F
 	}
 }
 
-// Format returns string of formatted integer using given currency template.
+// Format returns string of formatted integer using given Currency template.
 func (f *Formatter) Format(amount int64) string {
-	// Work with absolute amount value
+	// Work with absolute Amount value
 	sa := strconv.FormatInt(f.abs(amount), 10)
 
 	if len(sa) <= f.Fraction {
@@ -47,7 +47,7 @@ func (f *Formatter) Format(amount int64) string {
 	sa = strings.Replace(f.Template, "1", sa, 1)
 	sa = strings.Replace(sa, "$", f.Grapheme, 1)
 
-	// Add minus sign for negative amount.
+	// Add minus sign for negative Amount.
 	if amount < 0 {
 		sa = "-" + sa
 	}
@@ -55,7 +55,7 @@ func (f *Formatter) Format(amount int64) string {
 	return sa
 }
 
-// ToMajorUnits returns float64 representing the value in sub units using the currency data
+// ToMajorUnits returns float64 representing the value in sub units using the Currency data
 func (f *Formatter) ToMajorUnits(amount int64) float64 {
 	if f.Fraction == 0 {
 		return float64(amount)

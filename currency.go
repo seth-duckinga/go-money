@@ -4,20 +4,20 @@ import (
 	"strings"
 )
 
-// Currency represents money currency information required for formatting.
+// Currency represents money Currency information required for formatting.
 type Currency struct {
-	Code        string
-	NumericCode string
-	Fraction    int
-	Grapheme    string
-	Template    string
-	Decimal     string
-	Thousand    string
+	Code        string `json:"code" bson:"code"`
+	NumericCode string `json:"numericCode" bson:"numeric_code"`
+	Fraction    int    `json:"fraction" bson:"fraction"`
+	Grapheme    string `json:"grapheme" bson:"grapheme"`
+	Template    string `json:"template" bson:"template"`
+	Decimal     string `json:"decimal" bson:"decimal"`
+	Thousand    string `json:"thousand" bson:"thousand"`
 }
 
 type Currencies map[string]*Currency
 
-// CurrencyByNumericCode returns the currency given the numeric code defined in ISO-4271.
+// CurrencyByNumericCode returns the Currency given the numeric code defined in ISO-4271.
 func (c Currencies) CurrencyByNumericCode(code string) *Currency {
 	for _, sc := range c {
 		if sc.NumericCode == code {
@@ -28,7 +28,7 @@ func (c Currencies) CurrencyByNumericCode(code string) *Currency {
 	return nil
 }
 
-// CurrencyByCode returns the currency given the currency code defined as a constant.
+// CurrencyByCode returns the Currency given the Currency code defined as a constant.
 func (c Currencies) CurrencyByCode(code string) *Currency {
 	sc, ok := c[code]
 	if !ok {
@@ -44,7 +44,7 @@ func (c Currencies) Add(currency *Currency) Currencies {
 	return c
 }
 
-// currencies represents a collection of currency.
+// currencies represents a collection of Currency.
 var currencies = Currencies{
 	AED: {Decimal: ".", Thousand: ",", Code: AED, Fraction: 2, NumericCode: "784", Grapheme: ".\u062f.\u0625", Template: "1 $"},
 	AFN: {Decimal: ".", Thousand: ",", Code: AFN, Fraction: 2, NumericCode: "971", Grapheme: "\u060b", Template: "1 $"},
@@ -221,7 +221,7 @@ var currencies = Currencies{
 	ZWL: {Decimal: ".", Thousand: ",", Code: ZWL, Fraction: 2, NumericCode: "932", Grapheme: "Z$", Template: "$1"},
 }
 
-// AddCurrency lets you insert or update currency in currencies list.
+// AddCurrency lets you insert or update Currency in currencies list.
 func AddCurrency(code, Grapheme, Template, Decimal, Thousand string, Fraction int) *Currency {
 	c := Currency{
 		Code:     code,
@@ -239,13 +239,13 @@ func newCurrency(code string) *Currency {
 	return &Currency{Code: strings.ToUpper(code)}
 }
 
-// GetCurrency returns the currency given the code.
+// GetCurrency returns the Currency given the code.
 func GetCurrency(code string) *Currency {
 	return currencies.CurrencyByCode(code)
 }
 
-// Formatter returns currency formatter representing
-// used currency structure.
+// Formatter returns Currency formatter representing
+// used Currency structure.
 func (c *Currency) Formatter() *Formatter {
 	return &Formatter{
 		Fraction: c.Fraction,
@@ -256,13 +256,13 @@ func (c *Currency) Formatter() *Formatter {
 	}
 }
 
-// getDefault represent default currency if currency is not found in currencies list.
-// Grapheme and Code fields will be changed by currency code.
+// getDefault represent default Currency if Currency is not found in currencies list.
+// Grapheme and Code fields will be changed by Currency code.
 func (c *Currency) getDefault() *Currency {
 	return &Currency{Decimal: ".", Thousand: ",", Code: c.Code, Fraction: 2, Grapheme: c.Code, Template: "1$"}
 }
 
-// get extended currency using currencies list.
+// get extended Currency using currencies list.
 func (c *Currency) get() *Currency {
 	if curr, ok := currencies[c.Code]; ok {
 		return curr

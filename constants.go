@@ -1,6 +1,6 @@
 package money
 
-// Constants for active currency codes according to the ISO 4217 standard.
+// Constants for active Currency codes according to the ISO 4217 standard.
 const (
 	AED = "AED"
 	AFN = "AFN"
