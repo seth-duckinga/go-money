@@ -3,8 +3,6 @@ package money_test
 import (
 	"fmt"
 	"log"
-
-	"gitlab.com/duckinga1/duck/library/go-money"
 )
 
 func ExampleMoney() {
