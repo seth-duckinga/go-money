@@ -1,3 +1,3 @@
-module gitlab.com/duckinga1/duck/library/go-money.git
+module github.com/seth-duckinga/go-money
 
-go 1.21
+go 1.22
