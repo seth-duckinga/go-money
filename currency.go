@@ -20,7 +20,7 @@ type Currencies map[string]*Currency
 // CurrencyByNumericCode returns the Currency given the numeric code defined in ISO-4271.
 func (c Currencies) CurrencyByNumericCode(code string) *Currency {
 	for _, sc := range c {
-		if sc.NumericCode == code {
+		if sc.NumericCode == strings.ToUpper(code) {
 			return sc
 		}
 	}
@@ -30,7 +30,7 @@ func (c Currencies) CurrencyByNumericCode(code string) *Currency {
 
 // CurrencyByCode returns the Currency given the Currency code defined as a constant.
 func (c Currencies) CurrencyByCode(code string) *Currency {
-	sc, ok := c[code]
+	sc, ok := c[strings.ToUpper(code)]
 	if !ok {
 		return nil
 	}
@@ -241,7 +241,7 @@ func newCurrency(code string) *Currency {
 
 // GetCurrency returns the Currency given the code.
 func GetCurrency(code string) *Currency {
-	return currencies.CurrencyByCode(code)
+	return currencies.CurrencyByCode(strings.ToUpper(code))
 }
 
 // Formatter returns Currency formatter representing
@@ -264,6 +264,10 @@ func (c *Currency) getDefault() *Currency {
 
 // get extended Currency using currencies list.
 func (c *Currency) get() *Currency {
+	if c == nil {
+		return c.getDefault()
+	}
+
 	if curr, ok := currencies[c.Code]; ok {
 		return curr
 	}
