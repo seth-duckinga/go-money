@@ -146,6 +146,16 @@ func (m *Money) Add(om *Money) (*Money, error) {
 	return &Money{Amount: mutate.calc.add(m.Amount, om.Amount), Currency: m.Currency}, nil
 }
 
+func (m *Money) AddByInt64(val int64) (*Money, error) {
+	addingVal := New(val, m.currency.Code)
+	return m.Add(addingVal)
+}
+
+func (m *Money) AddByFloat64(val float64) (*Money, error) {
+	addingVal := NewFromFloat(val, m.currency.Code)
+	return m.Add(addingVal)
+}
+
 // Subtract returns new Money struct with value representing difference of Self and Other Money.
 func (m *Money) Subtract(om *Money) (*Money, error) {
 	if err := m.assertSameCurrency(om); err != nil {
