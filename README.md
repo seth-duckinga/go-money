@@ -1,14 +1,7 @@
 # Money
 
-![alt text](http://i.imgur.com/c3XmCC6.jpg "Money")
-
-[![Go Report Card](https://goreportcard.com/badge/github.com/rhymond/go-money)](https://goreportcard.com/report/github.com/rhymond/go-money)
-[![Coverage Status](https://coveralls.io/repos/github/Rhymond/go-money/badge.svg?branch=master)](https://coveralls.io/github/Rhymond/go-money?branch=master)
-[![GoDoc](https://godoc.org/github.com/Rhymond/go-money?status.svg)](https://godoc.org/github.com/Rhymond/go-money)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 **GoMoney** provides ability to work with [monetary value using a currency's smallest unit](https://martinfowler.com/eaaCatalog/money.html).
-This package provides basic and precise Money operations such as rounding, splitting and allocating.  Monetary values should not be stored as floats due to small rounding differences.
+This package provides basic and precise Money operations such as rounding, splitting and allocating. Monetary values should not be stored as floats due to small rounding differences.
 
 ```go
 package main
@@ -16,7 +9,7 @@ package main
 import (
   "log"
 
-  "github.com/Rhymond/go-money"
+  "github.com/seth-duckinga/go-money"
 )
 
 func main() {
@@ -39,41 +32,48 @@ func main() {
 }
 
 ```
-Quick start
--
+
+## Quick start
+
 Get the package:
 
-``` bash
-$ go get github.com/Rhymond/go-money
+```bash
+go get github.com/seth-duckinga/go-money
 ```
 
 ## Features
-* Provides a Money struct which stores information about an Money amount value and its currency.
-* Provides a ```Money.Amount``` struct which encapsulates all information about a monetary unit.
-* Represents monetary values as integers, in cents. This avoids floating point rounding errors.
-* Represents currency as ```Money.Currency``` instances providing a high level of flexibility.
 
-Usage
--
+- Provides a Money struct which stores information about an Money amount value and its currency.
+- Provides a `Money.Amount` struct which encapsulates all information about a monetary unit.
+- Represents monetary values as integers, in cents. This avoids floating point rounding errors.
+- Represents currency as `Money.Currency` instances providing a high level of flexibility.
+
+## Usage
+
 ### Initialization
+
 Initialize Money by using smallest unit value (e.g 100 represents 1 pound). Use ISO 4217 Currency Code to set money Currency. Note that constants are also provided for all ISO 4217 currency codes.
+
 ```go
 pound := money.New(100, money.GBP)
 ```
+
 Or initialize Money using the direct amount.
+
 ```go
 quarterEuro := money.NewFromFloat(0.25, money.EUR)
 ```
-Comparison
--
+
+## Comparison
+
 **Go-money** provides base compare operations like:
 
-* Equals
-* GreaterThan
-* GreaterThanOrEqual
-* LessThan
-* LessThanOrEqual
-* Compare
+- Equals
+- GreaterThan
+- GreaterThanOrEqual
+- LessThan
+- LessThanOrEqual
+- Compare
 
 Comparisons must be made between the same currency units.
 
@@ -90,11 +90,12 @@ pound.Compare(twoPounds) // -1, nil
 pound.Compare(pound) // 0, nil
 pound.Compare(twoEuros) // pound.amount, ErrCurrencyMismatch
 ```
-Asserts
--
-* IsZero
-* IsNegative
-* IsPositive
+
+## Asserts
+
+- IsZero
+- IsNegative
+- IsPositive
 
 #### Zero value
 
@@ -123,13 +124,13 @@ pound := money.New(100, money.GBP)
 pound.IsNegative() // false
 ```
 
-Operations
--
-* Add
-* Subtract
-* Multiply
-* Absolute
-* Negative
+## Operations
+
+- Add
+- Subtract
+- Multiply
+- Absolute
+- Negative
 
 Comparisons must be made between the same currency units.
 
@@ -185,11 +186,10 @@ pound := money.New(100, money.GBP)
 result := pound.Negative() // -£1.00
 ```
 
-Allocation
--
+## Allocation
 
-* Split
-* Allocate
+- Split
+- Allocate
 
 #### Splitting
 
@@ -231,29 +231,27 @@ parties[1].Display() // £0.33
 parties[2].Display() // £0.33
 ```
 
-Format
--
+## Format
 
 To format and return Money as a string use `Display()`.
 
 ```go
 money.New(123456789, money.EUR).Display() // €1,234,567.89
 ```
+
 To format and return Money as a float64 representing the amount value in the currency's subunit use `AsMajorUnits()`.
 
 ```go
 money.New(123456789, money.EUR).AsMajorUnits() // 1234567.89
 ```
 
-Contributing
--
+## Contributing
+
 Thank you for considering contributing!
 Please use GitHub issues and Pull Requests for contributing.
 
-License
--
+## License
+
 The MIT License (MIT). Please see License File for more information.
 
-
-
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/Rhymond/go-money)
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/seth-duckinga/go-money)

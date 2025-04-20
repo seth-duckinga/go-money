@@ -10,8 +10,9 @@ import (
 
 // Injection points for backward compatibility.
 // If you need to keep your JSON marshal/unmarshal way, overwrite them like below.
-//   money.UnmarshalJSON = func (m *Money, b []byte) error { ... }
-//   money.MarshalJSON = func (m Money) ([]byte, error) { ... }
+//
+//	money.UnmarshalJSON = func (m *Money, b []byte) error { ... }
+//	money.MarshalJSON = func (m Money) ([]byte, error) { ... }
 var (
 	// UnmarshalJSON is injection point of json.Unmarshaller for money.Money
 	UnmarshalJSON = defaultUnmarshalJSON
@@ -206,6 +207,16 @@ func (m *Money) Add(om *Money) (*Money, error) {
 	return &Money{amount: mutate.calc.add(m.amount, om.amount), currency: m.currency}, nil
 }
 
+func (m *Money) AddByInt64(val int64) (*Money, error) {
+	addingVal := New(val, m.currency.Code)
+	return m.Add(addingVal)
+}
+
+func (m *Money) AddByFloat64(val float64) (*Money, error) {
+	addingVal := NewFromFloat(val, m.currency.Code)
+	return m.Add(addingVal)
+}
+
 // Subtract returns new Money struct with value representing difference of Self and Other Money.
 func (m *Money) Subtract(om *Money) (*Money, error) {
 	if err := m.assertSameCurrency(om); err != nil {
@@ -329,9 +340,11 @@ func (m Money) MarshalJSON() ([]byte, error) {
 }
 
 // Compare function compares two money of the same type
-//  if m.amount > om.amount returns (1, nil)
-//  if m.amount == om.amount returns (0, nil
-//  if m.amount < om.amount returns (-1, nil)
+//
+//	if m.amount > om.amount returns (1, nil)
+//	if m.amount == om.amount returns (0, nil
+//	if m.amount < om.amount returns (-1, nil)
+//
 // If compare moneys from distinct currency, return (m.amount, ErrCurrencyMismatch)
 func (m *Money) Compare(om *Money) (int, error) {
 	if err := m.assertSameCurrency(om); err != nil {

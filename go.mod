@@ -1,3 +1,3 @@
-module github.com/Rhymond/go-money
+module github.com/seth-duckinga/go-money
 
-go 1.13
+go 1.22
